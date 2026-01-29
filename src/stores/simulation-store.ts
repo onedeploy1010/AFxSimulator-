@@ -311,6 +311,33 @@ export const useSimulationStore = create<SimulationStore>()(
         currentDay: state.currentDay,
         stats: state.stats,
       }),
+      merge: (persistedState, currentState) => {
+        const persisted = persistedState as Partial<SimulationState> | undefined;
+        return {
+          ...currentState,
+          ...persisted,
+          // 确保 config 完整
+          config: {
+            ...DEFAULT_SYSTEM_CONFIG,
+            ...(persisted?.config || {}),
+            tierConfigs: persisted?.config?.tierConfigs || DEFAULT_SYSTEM_CONFIG.tierConfigs,
+            brokerConfigs: persisted?.config?.brokerConfigs || DEFAULT_SYSTEM_CONFIG.brokerConfigs,
+          },
+          // 确保 lpPool 完整
+          lpPool: {
+            ...DEFAULT_LP_POOL,
+            ...(persisted?.lpPool || {}),
+          },
+          // 确保 stats 完整
+          stats: {
+            ...initialStats,
+            ...(persisted?.stats || {}),
+          },
+          // 确保数组不为 undefined
+          orders: persisted?.orders || [],
+          dailyRecords: persisted?.dailyRecords || [],
+        };
+      },
     }
   )
 );
