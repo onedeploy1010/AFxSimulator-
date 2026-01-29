@@ -303,7 +303,7 @@ export function StakingPage() {
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {activeOrders.map((order) => (
+                {(activeOrders || []).map((order) => (
                   <TableRow key={order.id}>
                     <TableCell className="font-mono text-xs">
                       {order.id.slice(0, 8)}...

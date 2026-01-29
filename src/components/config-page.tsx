@@ -153,7 +153,7 @@ export function ConfigPage() {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {config.tierConfigs.map((tierConfig) => (
+              {(config.tierConfigs || []).map((tierConfig) => (
                 <TableRow key={tierConfig.tier}>
                   <TableCell className="font-medium">{tierConfig.tier}</TableCell>
                   <TableCell>
@@ -399,7 +399,7 @@ export function ConfigPage() {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {config.brokerConfigs.map((brokerConfig) => (
+              {(config.brokerConfigs || []).map((brokerConfig) => (
                 <TableRow key={brokerConfig.level}>
                   <TableCell className="font-medium">{brokerConfig.level}</TableCell>
                   <TableCell>{formatPercent(brokerConfig.promotionRewardRatio)}</TableCell>

@@ -25,11 +25,22 @@ import {
 } from 'lucide-react';
 
 export function Dashboard() {
-  const activeTab = useActiveTab();
+  const activeTab = useActiveTab() || 'config';
   const { setActiveTab } = useSimulationActions();
   const lpPool = useLPPool();
   const stats = useStats();
-  const currentDay = useCurrentDay();
+  const currentDay = useCurrentDay() || 0;
+
+  // 等待 store 初始化
+  if (!lpPool || !stats) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <h1 className="text-xl font-bold">Loading AFx Simulator...</h1>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gray-50">
