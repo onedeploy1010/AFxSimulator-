@@ -53,12 +53,16 @@ import {
 
 export function AAMPage() {
   const lpPool = useLPPool();
-  const dailyRecords = useDailyRecords();
+  const dailyRecords = useDailyRecords() || [];
   const stats = useStats();
   const { buyAF, sellAF, resetSimulation } = useSimulationActions();
 
   const [buyAmount, setBuyAmount] = useState<string>('1000');
   const [sellAmount, setSellAmount] = useState<string>('100');
+
+  if (!lpPool || !stats) {
+    return <div className="p-8 text-center">Loading...</div>;
+  }
 
   // 计算买入预览
   const buyPreview = useMemo(() => {

@@ -29,7 +29,7 @@ export function Dashboard() {
   const { setActiveTab } = useSimulationActions();
   const lpPool = useLPPool();
   const stats = useStats();
-  const currentDay = useCurrentDay() || 0;
+  const currentDay = useCurrentDay() ?? 0;
 
   // 等待 store 初始化
   if (!lpPool || !stats) {
@@ -41,6 +41,10 @@ export function Dashboard() {
       </div>
     );
   }
+
+  const safeAfPrice = lpPool?.afPrice ?? 0;
+  const safeTotalAFReleased = stats?.totalAFReleased ?? 0;
+  const safeTotalAFBurned = stats?.totalAFBurned ?? 0;
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -70,19 +74,19 @@ export function Dashboard() {
               <div className="flex items-center gap-2">
                 <DollarSign className="h-4 w-4 text-blue-500" />
                 <span className="text-sm">AF 价格:</span>
-                <span className="text-sm font-bold">{formatCurrency(lpPool.afPrice)}</span>
+                <span className="text-sm font-bold">{formatCurrency(safeAfPrice)}</span>
               </div>
               <div className="h-6 w-px bg-gray-200" />
               <div className="flex items-center gap-2">
                 <Coins className="h-4 w-4 text-green-500" />
                 <span className="text-sm">已释放:</span>
-                <span className="text-sm font-bold">{formatCompactNumber(stats.totalAFReleased)} AF</span>
+                <span className="text-sm font-bold">{formatCompactNumber(safeTotalAFReleased)} AF</span>
               </div>
               <div className="h-6 w-px bg-gray-200" />
               <div className="flex items-center gap-2">
                 <Flame className="h-4 w-4 text-red-500" />
                 <span className="text-sm">已销毁:</span>
-                <span className="text-sm font-bold">{formatCompactNumber(stats.totalAFBurned)} AF</span>
+                <span className="text-sm font-bold">{formatCompactNumber(safeTotalAFBurned)} AF</span>
               </div>
             </div>
           </div>

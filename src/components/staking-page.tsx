@@ -45,13 +45,18 @@ import {
 
 export function StakingPage() {
   const config = useConfig();
-  const orders = useOrders();
+  const orders = useOrders() || [];
   const lpPool = useLPPool();
   const stats = useStats();
   const { addStakingOrder, removeStakingOrder, clearAllOrders, getPrediction } = useSimulationActions();
 
   const [selectedTier, setSelectedTier] = useState<number>(STAKING_TIERS[0]);
   const [principal, setPrincipal] = useState<string>('');
+
+  // 等待配置加载
+  if (!config || !config.tierConfigs || !lpPool || !stats) {
+    return <div className="p-8 text-center">Loading...</div>;
+  }
 
   const tierConfig = config.tierConfigs.find((t) => t.tier === selectedTier);
 

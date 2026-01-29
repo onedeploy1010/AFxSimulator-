@@ -34,6 +34,15 @@ export function ConfigPage() {
   const config = useConfig();
   const { updateConfig, updateTierConfig, updateBrokerConfig, resetConfig } = useSimulationActions();
 
+  // 等待配置加载
+  if (!config || !config.tierConfigs || !config.brokerConfigs) {
+    return (
+      <div className="p-8 text-center">
+        <p>Loading configuration...</p>
+      </div>
+    );
+  }
+
   return (
     <div className="space-y-6">
       {/* 页面标题 */}

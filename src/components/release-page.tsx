@@ -52,11 +52,15 @@ import {
 
 export function ReleasePage() {
   const config = useConfig();
-  const orders = useOrders();
+  const orders = useOrders() || [];
   const lpPool = useLPPool();
-  const currentDay = useCurrentDay();
-  const dailyRecords = useDailyRecords();
+  const currentDay = useCurrentDay() ?? 0;
+  const dailyRecords = useDailyRecords() || [];
   const stats = useStats();
+
+  if (!lpPool || !stats) {
+    return <div className="p-8 text-center">Loading...</div>;
+  }
   const { advanceDay, advanceDays, resetSimulation } = useSimulationActions();
   const isSimulating = useIsSimulating();
 

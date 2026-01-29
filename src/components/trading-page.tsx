@@ -58,12 +58,16 @@ import {
 export function TradingPage() {
   const config = useConfig();
   const lpPool = useLPPool();
-  const orders = useOrders();
-  const brokerRewards = useBrokerRewards();
+  const orders = useOrders() || [];
+  const brokerRewards = useBrokerRewards() || [];
 
   const [tradingFund, setTradingFund] = useState<string>('1000');
   const [profitRate, setProfitRate] = useState<number>(2);
   const [selectedTier, setSelectedTier] = useState<number>(STAKING_TIERS[2]);
+
+  if (!config || !config.tierConfigs || !lpPool) {
+    return <div className="p-8 text-center">Loading...</div>;
+  }
 
   const tierConfig = config.tierConfigs.find((t) => t.tier === selectedTier);
 
