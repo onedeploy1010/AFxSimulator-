@@ -3,11 +3,6 @@
  */
 
 import { useState } from 'react';
-import { ConfigPage } from '../components/config-page';
-import { StakingPage } from '../components/staking-page';
-import { ReleasePage } from '../components/release-page';
-import { TradingPage } from '../components/trading-page';
-import { AAMPage } from '../components/aam-page';
 import { useLPPool, useStats, useCurrentDay } from '../stores/simulation-store';
 import { formatCurrency, formatCompactNumber } from '../lib/utils';
 import {
@@ -144,12 +139,9 @@ export function Dashboard() {
         </div>
 
         {/* 内容区域 */}
-        <div>
-          {activeTab === 'config' && <ConfigPage />}
-          {activeTab === 'staking' && <StakingPage />}
-          {activeTab === 'release' && <ReleasePage />}
-          {activeTab === 'trading' && <TradingPage />}
-          {activeTab === 'aam' && <AAMPage />}
+        <div className="bg-white rounded-lg shadow p-6">
+          <h2 className="text-xl font-bold mb-4">当前页面: {activeTab}</h2>
+          <p className="text-gray-500">页面加载测试成功</p>
         </div>
       </main>
 
