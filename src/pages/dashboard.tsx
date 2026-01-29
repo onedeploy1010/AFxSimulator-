@@ -24,14 +24,6 @@ import {
 
 type TabType = 'config' | 'staking' | 'release' | 'trading' | 'aam';
 
-const tabs: { id: TabType; label: string; icon: React.ReactNode }[] = [
-  { id: 'config', label: '参数配置', icon: <Settings className="h-4 w-4" /> },
-  { id: 'staking', label: '质押管理', icon: <Wallet className="h-4 w-4" /> },
-  { id: 'release', label: '释放进度', icon: <Calendar className="h-4 w-4" /> },
-  { id: 'trading', label: '交易模拟', icon: <TrendingUp className="h-4 w-4" /> },
-  { id: 'aam', label: 'AAM 池监控', icon: <Droplets className="h-4 w-4" /> },
-];
-
 export function Dashboard() {
   const [activeTab, setActiveTab] = useState<TabType>('config');
   const lpPool = useLPPool();
@@ -104,20 +96,51 @@ export function Dashboard() {
       <main className="max-w-7xl mx-auto px-4 py-6">
         {/* 标签页导航 */}
         <div className="flex gap-1 p-1 bg-gray-100 rounded-lg mb-6">
-          {tabs.map((tab) => (
-            <button
-              key={tab.id}
-              onClick={() => setActiveTab(tab.id)}
-              className={`flex items-center gap-2 px-4 py-2 rounded-md text-sm font-medium transition-colors ${
-                activeTab === tab.id
-                  ? 'bg-white text-gray-900 shadow'
-                  : 'text-gray-500 hover:text-gray-700'
-              }`}
-            >
-              {tab.icon}
-              {tab.label}
-            </button>
-          ))}
+          <button
+            onClick={() => setActiveTab('config')}
+            className={`flex items-center gap-2 px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+              activeTab === 'config' ? 'bg-white text-gray-900 shadow' : 'text-gray-500 hover:text-gray-700'
+            }`}
+          >
+            <Settings className="h-4 w-4" />
+            参数配置
+          </button>
+          <button
+            onClick={() => setActiveTab('staking')}
+            className={`flex items-center gap-2 px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+              activeTab === 'staking' ? 'bg-white text-gray-900 shadow' : 'text-gray-500 hover:text-gray-700'
+            }`}
+          >
+            <Wallet className="h-4 w-4" />
+            质押管理
+          </button>
+          <button
+            onClick={() => setActiveTab('release')}
+            className={`flex items-center gap-2 px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+              activeTab === 'release' ? 'bg-white text-gray-900 shadow' : 'text-gray-500 hover:text-gray-700'
+            }`}
+          >
+            <Calendar className="h-4 w-4" />
+            释放进度
+          </button>
+          <button
+            onClick={() => setActiveTab('trading')}
+            className={`flex items-center gap-2 px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+              activeTab === 'trading' ? 'bg-white text-gray-900 shadow' : 'text-gray-500 hover:text-gray-700'
+            }`}
+          >
+            <TrendingUp className="h-4 w-4" />
+            交易模拟
+          </button>
+          <button
+            onClick={() => setActiveTab('aam')}
+            className={`flex items-center gap-2 px-4 py-2 rounded-md text-colors ${
+              activeTab === 'aam' ? 'bg-white text-gray-900 shadow' : 'text-gray-500 hover:text-gray-700'
+            }`}
+          >
+            <Droplets className="h-4 w-4" />
+            AAM 池监控
+          </button>
         </div>
 
         {/* 内容区域 */}
